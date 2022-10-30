@@ -28,7 +28,7 @@ export default ({ mode }) => {
                         'table-header-color': '#001d59',
                         'table-header-bg': '#ffffff',
                         // 'border-color-base': '#000000',
-                        'border-radius-base': '4px',
+                        'border-radius-base': '8px',
                         'error-color': '#f44336',
                         // 'font-size-base': '14px',
                         'menu-dark-color': '#f8f9fa',

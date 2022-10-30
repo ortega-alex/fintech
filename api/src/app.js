@@ -7,7 +7,7 @@ import https from 'https';
 import fs from 'fs';
 import { Server } from 'socket.io';
 
-import { NODE_ENV } from './envirinment';
+import { NODE_ENV } from './utilities';
 import routes from './routes/v1.route';
 
 // INITIALIZE
@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // ROUTES
-app.use('/api', routes);
+app.use('/api/v1/', routes);
 
 // STATIC FILES
 app.use(express.static(path.join(__dirname, 'public')));

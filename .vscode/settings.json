@@ -1,22 +1,23 @@
 {
     "rest-client.environmentVariables": {
         "local": {
-            "version": "",
-            "host": "",
-            "ENCODING": "",
-            "token": ""
+            "version": "v1",
+            "host": "localhost",
+            "port": "4000",
+            "ENCODING": "d218595c-57a5-11ed-94ff-0242ac160002",
+            "TOKEN": "eyJhbGciOiJIUzI1NiJ9.MQ.PH71E1HsmLwBdmpzQqNQcVPmZ2bzAjzruFKHuA9HpnM"
         },
         "dev": {
             "version": "",
             "host": "",
             "ENCODING": "",
-            "token": ""
+            "TOKEN": ""
         },
         "production": {
             "version": "",
             "host": "",
             "ENCODING": "",
-            "token": ""
+            "TOKEN": ""
         }
     },
     "files.exclude": {

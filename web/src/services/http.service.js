@@ -12,20 +12,10 @@ export const _GET = async path => {
     }
 };
 
-export const _POST = async (path, payload = {}, files = []) => {
+export const _POST = async (path, body) => {
     try {
-        const data = new FormData();
-        if (process.env.NODE_ENV === 'development') {
-            Object.keys(payload).forEach(key => data.append(key, payload[key]));
-        } else {
-            data.append('data', encryptData(payload));
-        }
-        if (Array.isArray(files)) {
-            files.forEach((file, index) => data.append(`file${index}`, file));
-        } else {
-            data.append('file', files);
-        }
-        const res = await axios.post(_SERVER.apiUrl + path, data);
+        body = process.env.NODE_ENV === 'development' ? body : { data: encryptData(body) };
+        const res = await axios.post(_SERVER.apiUrl + path, body);
         return process.env.NODE_ENV === 'development' ? res.data : decryptData(res.data.data);
     } catch (error) {
         return Promise.reject(error);

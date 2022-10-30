@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Divider, Form, Input, Modal } from 'antd';
+import { Button, Divider, Form, Input, message, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -7,6 +7,8 @@ import { setSession } from '@/redux/state';
 import { PrivateRoutes } from '@/models';
 import { Icon } from '@/components';
 import FormItem from 'antd/es/form/FormItem';
+import { httpLogin } from '@/services';
+import { sessionAdapter } from '@/adapters';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -14,9 +16,18 @@ export default function Login() {
 
     const [showPass, setShowPass] = useState(false);
     const [modal, setModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = values => {
-        console.log(values);
+        setLoading(true);
+        httpLogin(values)
+            .then(res => {
+                if (res.message) message.warning(res.message);
+                dispatch(setSession({ session: sessionAdapter(res.session), token: res.token }));
+                navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
+            })
+            .catch(err => console.error('Error http login', err))
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -43,7 +54,7 @@ export default function Login() {
                             }
                         />
                     </Form.Item>
-                    <Button htmlType='submit' type='default' block>
+                    <Button htmlType='submit' type='default' block disabled={loading} loading={loading}>
                         Iniciar Sesión
                     </Button>
                     <Divider plain className='text-white'>
@@ -60,7 +71,7 @@ export default function Login() {
             </div>
 
             <Modal
-                visible={modal}
+                open={modal}
                 onCancel={() => setModal(false)}
                 footer={null}
                 title={<h4 className='text-center'>Olvide mi contraseña</h4>}

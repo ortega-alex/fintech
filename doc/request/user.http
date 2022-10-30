@@ -1,0 +1,27 @@
+### LOGIN
+POST http://{{host}}:{{port}}/api/{{version}}/user/login 
+Content-Type: application/json
+
+{
+    "username": "m.ortega",
+    "password": "abc123**"
+}
+
+
+### GET ALL USERS
+GET http://{{host}}:{{port}}/api/{{version}}/user/all 
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
+### ADD USER
+POST http://{{host}}:{{port}}/api/{{version}}/user 
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
+{
+    "id_user": 1,
+    "username": "m.ortega",
+    "password": "abc123**"
+}

@@ -4,7 +4,7 @@ import { getStorage, _KEYS } from '@/services';
 export const PublicPrivateInterceptor = () => {
     axios.interceptors.request.use(request => {
         const token = getStorage(_KEYS.TOKEN);
-        if (token) request.headers.Token = token;
+        if (token) request.headers.Authorization = `Bearer ${token}`;
         if (process.env.NODE_ENV === 'development') request.headers.Encoding = _KEYS.ENCODING;
         return request;
     });

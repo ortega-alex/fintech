@@ -3,7 +3,7 @@ services:
     node: 
         container_name: node-${PROJECT_NAME}
         build: .
-        restart: always
+        # restart: always
         ports: 
             - "${NODE_PORT}:4000"
         volumes: 

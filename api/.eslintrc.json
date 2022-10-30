@@ -12,6 +12,8 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "camelcase": "off",
+        "dot-notation": "off"
     }
 }
