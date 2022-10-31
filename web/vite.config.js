@@ -25,17 +25,17 @@ export default ({ mode }) => {
                 less: {
                     modifyVars: {
                         'primary-color': '#278FB0',
-                        'table-header-color': '#001d59',
-                        'table-header-bg': '#ffffff',
+                        // 'table-header-color': '#001d59',
+                        // 'table-header-bg': '#ffffff',
                         // 'border-color-base': '#000000',
                         'border-radius-base': '8px',
-                        'error-color': '#f44336',
+                        'error-color': '#f44336'
                         // 'font-size-base': '14px',
-                        'menu-dark-color': '#f8f9fa',
-                        'menu-dark-bg': '#204387',
-                        'btn-border-style': 'none',
-                        'btn-default-color': '#204387',
-                        'btn-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)'
+                        // 'menu-dark-color': '#f8f9fa',
+                        // 'menu-dark-bg': '#204387',
+                        // 'btn-border-style': 'none',
+                        // 'btn-default-color': '#204387'
+                        // 'btn-shadow': '0px 4px 4px rgba(0, 0, 0, 0.25)'
                     },
                     javascriptEnabled: true
                 }

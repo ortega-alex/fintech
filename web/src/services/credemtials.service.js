@@ -14,5 +14,7 @@ export const _KEYS = {
     SECRET: process.env.SECRET || 'ae530912-57a5-11ed-94ff-0242ac160002',
     IV: process.env.IV || 'cd3d4a36-57a5-11ed-94ff-0242ac160002',
     ENCODING: process.env.ENCODING || 'd218595c-57a5-11ed-94ff-0242ac160002',
-    TOKEN: process.env.TOKEN || 'd5cceea7-57a5-11ed-94ff-0242ac160002'
+    TOKEN: process.env.TOKEN || 'd5cceea7-57a5-11ed-94ff-0242ac160002',
+    FBID: process.env.FBID || '5733732683361134',
+    GOOGLEID: process.env.GOOGLEID || '190033193574-cqs7d0q434edv7bqp4rsp05bcgaauave.apps.googleusercontent.com'
 };

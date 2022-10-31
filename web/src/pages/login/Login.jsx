@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Button, Divider, Form, Input, message, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import GoogleLogin from 'react-google-login';
 
 import { setSession } from '@/redux/state';
 import { PrivateRoutes } from '@/models';
 import { Icon } from '@/components';
 import FormItem from 'antd/es/form/FormItem';
-import { httpLogin } from '@/services';
+import { httpLogin, _KEYS } from '@/services';
 import { sessionAdapter } from '@/adapters';
 
 export default function Login() {
@@ -33,41 +35,75 @@ export default function Login() {
     return (
         <div className='container bg-primary vh-100'>
             <div className='h-100 d-flex flex-column justify-content-center align-items-center text-center gap-3'>
-                <Form style={{ width: 300, maxWidth: '90%' }} onFinish={handleSubmit}>
-                    <h2 className='text-white'>Fintech</h2>
-                    <Form.Item name='username' rules={[{ required: true, message: 'El campo es requerido' }]}>
-                        <Input prefix={<Icon.User />} placeholder='Ingrese un usuario/correo' />
-                    </Form.Item>
-                    <Form.Item name='password' rules={[{ required: true, message: 'El campo es requerido' }]}>
-                        <Input
-                            type={showPass ? 'text' : 'password'}
-                            prefix={<Icon.Lock />}
-                            placeholder='Ingrese una contraseña'
-                            autoComplete='off'
-                            suffix={
-                                <Button
-                                    onClick={() => setShowPass(!showPass)}
-                                    size='small'
-                                    type='text'
-                                    icon={showPass ? <Icon.EyeInvisible /> : <Icon.Eye />}
-                                />
-                            }
-                        />
-                    </Form.Item>
-                    <Button htmlType='submit' type='default' block disabled={loading} loading={loading}>
-                        Iniciar Sesión
-                    </Button>
-                    <Divider plain className='text-white'>
-                        Or
-                    </Divider>
-                    <div className='d-flex align-items-center justify-content-center gap-3'>
-                        <Button htmlType='button' shape='circle' icon={<Icon.Google />} />
-                        <Button htmlType='button' shape='circle' icon={<Icon.Facebook />} />
-                    </div>
-                    <Button type='text' block className='text-white mt-3' htmlType='button' onClick={() => setModal(true)}>
-                        Olvide mi contraseña
-                    </Button>
-                </Form>
+                <div className='card p-3 '>
+                    <Form onFinish={handleSubmit}>
+                        <h2 className='text-primary'>Fintech</h2>
+                        <Form.Item name='username' rules={[{ required: true, message: 'El campo es requerido' }]}>
+                            <Input prefix={<Icon.User />} placeholder='Ingrese un usuario/correo' />
+                        </Form.Item>
+                        <Form.Item name='password' rules={[{ required: true, message: 'El campo es requerido' }]}>
+                            <Input
+                                type={showPass ? 'text' : 'password'}
+                                prefix={<Icon.Lock />}
+                                placeholder='Ingrese una contraseña'
+                                autoComplete='off'
+                                suffix={
+                                    <Button
+                                        onClick={() => setShowPass(!showPass)}
+                                        size='small'
+                                        type='text'
+                                        icon={showPass ? <Icon.EyeInvisible /> : <Icon.Eye />}
+                                    />
+                                }
+                            />
+                        </Form.Item>
+                        <Button htmlType='submit' type='primary' block disabled={loading} loading={loading}>
+                            Iniciar Sesión
+                        </Button>
+                        <Divider plain className='text-primary'>
+                            Or
+                        </Divider>
+                        <div className='d-flex align-items-center justify-content-center gap-3'>
+                            <GoogleLogin
+                                clientId={_KEYS.GOOGLEID}
+                                disabled={loading}
+                                buttonText='Login'
+                                onSuccess={res => console.log('success', res)}
+                                onFailure={err => console.log('err', err)}
+                                cookiePolicy={'single_host_origin'}
+                                render={renderProps => (
+                                    <Button
+                                        htmlType='button'
+                                        shape='circle'
+                                        icon={<Icon.Google />}
+                                        onClick={renderProps.onClick}
+                                        disabled={renderProps.disabled}
+                                    />
+                                )}
+                            />
+                            <FacebookLogin
+                                isMobile={false}
+                                appId={_KEYS.FBID}
+                                autoLoad={false}
+                                disabled={loading}
+                                fields='first_name,last_name,name,gender,birthday,email,address,link,picture'
+                                onClick={() => {}}
+                                callback={res => console.log('success', res)}
+                                render={renderProps => (
+                                    <Button
+                                        htmlType='button'
+                                        shape='circle'
+                                        icon={<Icon.Facebook color='#1877F2' />}
+                                        onClick={renderProps.onClick}
+                                    />
+                                )}
+                            />
+                        </div>
+                        <Button type='text' block className='text-primary mt-3' htmlType='button' onClick={() => setModal(true)}>
+                            Olvide mi contraseña
+                        </Button>
+                    </Form>
+                </div>
             </div>
 
             <Modal
