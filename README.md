@@ -1,10 +1,12 @@
 # pasos para configurar el ambiente de desarrollo (virtual docker)
-<p>configurar el archivo .env (variables de entorno) podía copiar el archivo .env.example, este archivo se utilizar para las variables de entorno de docker</p>
+<p>configurar el archivo .env (variables de entorno) puede copiar el archivo .env.example, este archivo se utilizar para las variables de entorno de docker</p>
 <spna>comandos para ambiente linux</span>
+
 ```bash
     cp .env.example .env
 ```
 <span>comando para ambiente windows </span>
+
 ```bash
     copy .env.example .env
 ```
@@ -18,18 +20,29 @@
 </ul>
 
 <p>Una vez configuradas las variables de entorno, se procede a levantar el ambiente (Tomar en cuenta tener previamente instalado y configurado docker)</p>
-<a href='https://docs.docker.com/engine/install/ubuntu/' target='_blank'><strong>Install Docker: </strong></a>
+<a href='https://docs.docker.com/engine/install/ubuntu/' target='_blank'><strong>Documentación para install Docker</strong></a>
+
+<span>comando para correr docker</span>
 
 ```bash 
     docker compose up -d
 ```
+
+<span>comando para parar docker</span>
+
+```bash
+    docker compose down
+```
+
 # pasos para configurar backend (local)
 <p>se debe de configurar un archivo .env, puede tomar de ejemplo el archiv .env.example, <strong>(los puertos deben de considir con los configurados en el archivo .env para el docker del anterior paso)</strong></p>
 <spna>comandos para ambiente linux</span>
+
 ```bash
     cd ./api && cp .env.example .env
 ```
 <span>comando para ambiente windows</span>
+
 ```bash
     cd .\api && copy .env.example .env
 ```
@@ -49,6 +62,7 @@
 </ul>
 
 <p>una ves configurado las variables de entorno procedemos con los siguientes comandos </strong>(si es local)</strong></p>
+
 ```bash
     npm i && npm run dev
 ```
@@ -56,10 +70,12 @@
 # pasos para configurar frontend 
 <p>se debe de configurar un archivo .env, puede tomar de ejemplo el archiv .env.example <strong>(Tomar en cuenta que los id deben ser los mismo que el del backend)</strong></p>
 <spna>comandos para ambiente linux</span>
+
 ```bash
     cd ./web && cp .env.example .env
 ```
 <span>comando para ambiente windows</span>
+
 ```bash
     cd .\web && copy .env.example .env
 ```
@@ -81,6 +97,7 @@
 <a href='https://cloud.google.com/docs/authentication/api-keys?hl=es-419' target='_blank'> <strong>Autentica con claves de API (google cloud)</strong></a>
 
 <p>una ves configurado las variables de entorno procedemos con los siguientes comandos</p>
+
 ```bash 
     bash npm i --legacy-peer-deps && npm run dev
 ```
