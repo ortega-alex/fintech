@@ -81,7 +81,7 @@
 ```
 
 <ul>
-    <li>VERSION_API: versión actual del backend<li>
+    <li>VERSION_API: versión actual del backend</li>
     <li>REACT_APP_NODE_PORT: puerto en el cual se está ejecutando node</li>
     <li>REACT_APP_NODE_HOST: dominio en el cual se está ejecutando node (localhost)</li>
     <li>SESSION: id único (uuid) que permite el almacenamiento en localstore la sesion del usuario</li>
@@ -99,5 +99,5 @@
 <p>una ves configurado las variables de entorno procedemos con los siguientes comandos</p>
 
 ```bash 
-    bash npm i --legacy-peer-deps && npm run dev
+    bash npm i && npm run dev
 ```

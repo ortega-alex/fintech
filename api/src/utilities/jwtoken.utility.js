@@ -2,7 +2,6 @@ import jwtoken from 'jsonwebtoken';
 import { _KEYS } from './envirinment.utility';
 
 export const authenticateToken = (req, res, next) => {
-    console.log(req.headers);
     const authHeader = req.headers.Authorization || req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.sendStatus(401);

@@ -1,47 +1,61 @@
-import { addUser, getAllUsers, getUserByUsername } from '../models';
+import { addOrUpdateUser, getAllUsers, getUserByUsername } from '../models';
 import { generateToken } from '../utilities';
 import bcrypt from 'bcryptjs';
+import { addOrUpdatePerson } from '../models/person.model';
 
 export const loginCtr = async (req, res) => {
     try {
-        const { username, password, facebook, google } = req.body;
-        if (!facebook && !google) {
+        const { username, password, provider, name, email, id, registration } = req.body;
+        let playload;
+        if (!provider) {
             if (!username) return res.status(400).json({ message: 'El usuario es obligatorio' });
             if (!password) return res.status(400).json({ message: 'La contraseña es obligatorio' });
-            getUserByUsername(username, (err, session) => {
-                if (err) return res.status(500).json({ message: 'Ha ocurrido un error', err });
-                if (session.length === 0) return res.status(202).json({ message: 'El usuario no existe' });
-                if (session[0].state === '0') return res.status(202).json({ message: 'El usuario esta suspendido' });
-
-                // const encrippass = bcrypt.hashSync(password, 8);
-
-                const match = bcrypt.compareSync(password, session[0].password);
-                if (!match) return res.status(203).json({ message: 'Contraseña incorecta' });
-
-                const token = generateToken(session[0].id_user);
-                res.status(200).json({ session: session[0], token });
-            });
+            playload = username;
+        } else {
+            if (!email || !name || !id) return res.status(400).json({ message: 'No se pudo recuperara informacion de tu cuenta' });
+            playload = email;
         }
+
+        let response = await getUserByUsername(playload);
+        if (!registration) {
+            if (response.length === 0) return res.status(202).json({ message: 'El usuario no existe' });
+            if (response[0].state === '0') return res.status(202).json({ message: 'El usuario esta suspendido' });
+        } else if (response.length === 0) {
+            const id_user = await addOrUpdateUser({
+                username: String(email).split('@')[0],
+                provider,
+                id_provider: id
+            });
+            await addOrUpdatePerson({
+                id_user,
+                full_name: name,
+                email
+            });
+            response = await getUserByUsername(playload);
+        }
+        const user = response[0];
+
+        if (!provider) {
+            const match = bcrypt.compareSync(password, user.password);
+            if (!match) return res.status(203).json({ message: 'Contraseña incorecta' });
+        }
+
+        const token = generateToken(user.id_user);
+        res.status(200).json({ session: user, token });
     } catch (error) {
         res.status(500).json({ message: 'Ha ocurrido un error interno', error });
     }
 };
 
-export const getAllUserCtr = async (req, res) =>
-    getAllUsers((err, users) => {
-        try {
-            if (err) return res.status(500).json({ message: 'Ha ocurrido un error', err });
-            res.status(200).json(users);
-        } catch (error) {
-            res.status(500).json({ message: 'Ha ocurrido un error interno', error });
-        }
-    });
+export const getAllUserCtr = (req, res) =>
+    getAllUsers()
+        .then(users => res.status(200).json(users))
+        .catch(error => res.status(500).json({ message: 'Ha ocurrido un error interno', error }));
 
 export const addUserCtr = async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) return res.state(400).json({ message: 'No se pudieron recuperar campos que son obligatorios' });
-    addUser(req.body, (err, data) => {
-        if (err) return res.status(500).json({ message: 'Ha ocurrido un error' });
-        res.status(200).json(data);
-    });
+    addOrUpdateUser(req.body)
+        .then(() => res.status(200).json({ error: false, message: 'Usuario guardado exitosamente' }))
+        .catch(error => res.status(500).json({ message: 'Ha ocurrido un error interno', error }));
 };

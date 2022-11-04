@@ -3,8 +3,11 @@ POST http://{{host}}:{{port}}/api/{{version}}/user/login
 Content-Type: application/json
 
 {
-    "username": "m.ortega",
-    "password": "abc123**"
+    "email": "ortegalex27@yahoo.com",
+    "id": "5559829780774351",
+    "name": "Alex Ortega",
+    "provider": "facebook",
+    "registration": true
 }
 
 

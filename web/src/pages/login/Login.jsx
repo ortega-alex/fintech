@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, Divider, Form, Input, message, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import GoogleLogin from 'react-google-login';
+import { LoginSocialGoogle, LoginSocialFacebook } from 'reactjs-social-login';
 
 import { setSession } from '@/redux/state';
 import { PrivateRoutes } from '@/models';
 import { Icon } from '@/components';
 import FormItem from 'antd/es/form/FormItem';
-import { httpLogin, _KEYS } from '@/services';
+import { httpLogin, _GET, _KEYS } from '@/services';
 import { sessionAdapter } from '@/adapters';
 
 export default function Login() {
@@ -20,6 +19,11 @@ export default function Login() {
     const [modal, setModal] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const onLoginStart = useCallback(() => {}, []);
+    const onLogout = useCallback(() => {}, []);
+    const onResolve = ({ provider, data }) => handleSubmit({ provider, ...data, registration: true });
+    const onReject = err => console.error('Error', err);
+
     const handleSubmit = values => {
         setLoading(true);
         httpLogin(values)
@@ -28,7 +32,7 @@ export default function Login() {
                 dispatch(setSession({ session: sessionAdapter(res.session), token: res.token }));
                 navigate(`/${PrivateRoutes.PRIVATE}`, { replace: true });
             })
-            .catch(err => console.error('Error http login', err))
+            .catch(err => message.error(err.message))
             .finally(() => setLoading(false));
     };
 
@@ -64,40 +68,27 @@ export default function Login() {
                             Or
                         </Divider>
                         <div className='d-flex align-items-center justify-content-center gap-3'>
-                            <GoogleLogin
-                                clientId={_KEYS.GOOGLEID}
-                                disabled={loading}
-                                buttonText='Login'
-                                onSuccess={res => console.log('success', res)}
-                                onFailure={err => console.log('err', err)}
-                                cookiePolicy={'single_host_origin'}
-                                render={renderProps => (
-                                    <Button
-                                        htmlType='button'
-                                        shape='circle'
-                                        icon={<Icon.Google />}
-                                        onClick={renderProps.onClick}
-                                        disabled={renderProps.disabled}
-                                    />
-                                )}
-                            />
-                            <FacebookLogin
-                                isMobile={false}
+                            <LoginSocialGoogle
+                                client_id={_KEYS.GOOGLEID}
+                                onLoginStart={onLoginStart}
+                                onResolve={onResolve}
+                                onReject={onReject}
+                                scope='openid profile email'
+                                discoveryDocs='claims_supported'
+                                access_type='offline'
+                            >
+                                <Button htmlType='button' shape='circle' icon={<Icon.Google />} />
+                            </LoginSocialGoogle>
+                            <LoginSocialFacebook
                                 appId={_KEYS.FBID}
-                                autoLoad={false}
-                                disabled={loading}
-                                fields='first_name,last_name,name,gender,birthday,email,address,link,picture'
-                                onClick={() => {}}
-                                callback={res => console.log('success', res)}
-                                render={renderProps => (
-                                    <Button
-                                        htmlType='button'
-                                        shape='circle'
-                                        icon={<Icon.Facebook color='#1877F2' />}
-                                        onClick={renderProps.onClick}
-                                    />
-                                )}
-                            />
+                                fieldsProfile={'id,first_name,last_name,middle_name,name,name_format,picture,short_name,email,gender'}
+                                onLoginStart={onLoginStart}
+                                onLogoutSuccess={onLogout}
+                                onResolve={onResolve}
+                                onReject={onReject}
+                            >
+                                <Button htmlType='button' shape='circle' icon={<Icon.Facebook color='#1877F2' />} />
+                            </LoginSocialFacebook>
                         </div>
                         <Button type='text' block className='text-primary mt-3' htmlType='button' onClick={() => setModal(true)}>
                             Olvide mi contraseña
