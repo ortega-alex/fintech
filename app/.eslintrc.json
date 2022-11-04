@@ -13,5 +13,9 @@
         "sourceType": "module"
     },
     "plugins": ["react", "react-native"],
-    "rules": {}
+    "rules": {
+        "no-unused-vars": "warn",
+        "react/prop-types": "off"
+
+    }
 }
