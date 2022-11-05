@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { clearStorage, getStorage, saveStorage, _KEYS } from '@/services';
 
 const EmptySessionState = null;
-const session = getStorage(_KEYS.SESSION);
+const session = getSteorage(_KEYS.SESSION);
 export const sessionSlice = createSlice({
     name: 'session',
     initialState: session ? session : EmptySessionState,
