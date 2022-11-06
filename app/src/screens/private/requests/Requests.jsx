@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function Profile() {
+const Requests = () => {
     return (
         <View>
-            <Text>Profile</Text>
+            <Text>Requests</Text>
         </View>
     );
-}
+};
+
+export default Requests;

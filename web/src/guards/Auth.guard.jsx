@@ -5,7 +5,7 @@ import { PublicRoutes } from '@/models';
 
 export const AuthGuard = () => {
     const sessionState = useSelector(state => state.session);
-    return sessionState ? <Outlet /> : <Navigate replace to={PublicRoutes.LOGIN} />;
+    return sessionState ? <Outlet /> : <Navigate replace to={PublicRoutes.SINGIN} />;
 };
 
 export default AuthGuard;

@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function StateRequests() {
+const DetailLoan = () => {
     return (
         <View>
-            <Text>StateRequests</Text>
+            <Text>DetailLoan</Text>
         </View>
     );
-}
+};
+
+export default DetailLoan;

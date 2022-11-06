@@ -4,7 +4,7 @@ import { authenticateToken } from '../utilities';
 
 const route = Router();
 
-route.post('/user/login', loginCtr);
+route.post('/user/sing-in', loginCtr);
 
 route.get('/user/all', authenticateToken, getAllUserCtr);
 route.post('/user', authenticateToken, addUserCtr);

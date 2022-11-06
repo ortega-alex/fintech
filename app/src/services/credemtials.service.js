@@ -1,7 +1,7 @@
 import Config from 'react-native-config';
 
-const domain = Config.NODE_HOST || 'http://localhost';
-const port = Config.NODE_PORT || '8095';
+const domain = Config.NODE_HOST || 'http://192.168.1.7';
+const port = Config.NODE_PORT || '4000';
 const vetsion = Config.NODE_VERSION || 'v1';
 export const _APP_ENV = Config.APP_ENV || 'developer';
 export const _SERVER = {

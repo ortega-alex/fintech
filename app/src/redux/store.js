@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { sessionSlice } from './state';
+import { sessionSlice, deviceSlice } from './state';
 
 export default configureStore({
     reducer: {
-        session: sessionSlice.reducer
+        session: sessionSlice.reducer,
+        device: deviceSlice.reducer
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

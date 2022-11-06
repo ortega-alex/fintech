@@ -21,7 +21,7 @@ export default function Home() {
                     onClick={() => {
                         dispatch(resetSession());
                         if (process.env.NODE_ENV !== 'development') window.location.href = _SERVER.baseUrl;
-                        else navigate(`/${PublicRoutes.LOGIN}`, { replace: true });
+                        else navigate(`/${PublicRoutes.SINGIN}`, { replace: true });
                     }}
                 >
                     Close Session

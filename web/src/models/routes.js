@@ -4,5 +4,5 @@ export const PrivateRoutes = {
 };
 
 export const PublicRoutes = {
-    LOGIN: 'login'
+    SINGIN: 'sing-in'
 };

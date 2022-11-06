@@ -8,7 +8,7 @@ import { setSession } from '@/redux/state';
 import { PrivateRoutes } from '@/models';
 import { Icon } from '@/components';
 import FormItem from 'antd/es/form/FormItem';
-import { httpLogin, _GET, _KEYS } from '@/services';
+import { httpSingIn, _GET, _KEYS } from '@/services';
 import { sessionAdapter } from '@/adapters';
 
 export default function Login() {
@@ -26,7 +26,7 @@ export default function Login() {
 
     const handleSubmit = values => {
         setLoading(true);
-        httpLogin(values)
+        httpSingIn(values)
             .then(res => {
                 if (res.message) message.warning(res.message);
                 dispatch(setSession({ session: sessionAdapter(res.session), token: res.token }));

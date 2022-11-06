@@ -5,7 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import { colors, mainStyle } from '@/Style';
 
-export default function RecoverPassword({ navigation }) {
+export const RecoverPassword = ({ navigation }) => {
     const [email, setEmail] = useState('');
     return (
         <View style={styles.container}>
@@ -44,7 +44,7 @@ export default function RecoverPassword({ navigation }) {
             </Animatable.View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
     flexRow: {
         flexDirection: 'row',
-        borderBottomColor: colors.balckLinght,
+        borderBottomColor: colors.blackLinght,
         borderBottomWidth: 1,
         marginBottom: 16,
         alignItems: 'center'
@@ -77,3 +77,5 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+export default RecoverPassword;

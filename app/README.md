@@ -1,5 +1,16 @@
 # comando sustitulle npx react-native link
-npx react-native-asset
 
+``` bash
+    npx react-native-asset
+```
+# comandos gradlew
 
-./gradlew.bat installDebug ( with dot at the beggining )
+```bash
+    ./gradlew.bat installDebug ( with dot at the beggining )
+```
+
+# limpiar cache
+
+```bash
+    npm start -- --reset-cache
+```

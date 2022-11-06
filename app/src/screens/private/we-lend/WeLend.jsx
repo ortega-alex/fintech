@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function WeLend() {
+const WeLend = () => {
     return (
         <View>
             <Text>WeLend</Text>
         </View>
     );
-}
+};
+
+export default WeLend;

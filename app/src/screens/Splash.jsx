@@ -3,7 +3,7 @@ import React from 'react';
 import * as Animatable from 'react-native-animatable';
 import { colors, mainStyle } from '@/Style';
 
-export default function Splash() {
+export const Splash = () => {
     return (
         <View style={{ ...mainStyle.screen, backgroundColor: colors.primary }}>
             <StatusBar translucent backgroundColor={colors.primary} />
@@ -16,4 +16,6 @@ export default function Splash() {
             />
         </View>
     );
-}
+};
+
+export default Splash;

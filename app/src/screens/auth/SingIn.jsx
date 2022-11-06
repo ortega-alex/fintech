@@ -1,20 +1,49 @@
-import { View, Text, StyleSheet, Image, StatusBar, TextInput, Platform, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, StatusBar, TextInput, Platform, TouchableOpacity, Alert } from 'react-native';
 import React, { useState } from 'react';
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSession } from '@/redux';
 
 import { colors, mainStyle } from '@/Style';
-import { PublicRoutes } from '@/models';
+import { PrivateRoutes, PublicRoutes } from '@/models';
 import logo from '@/assests/images/logo.png';
+import { sessionAdapter } from '@/adapters';
+import { httpSingIn, saveStorage, _KEYS } from '@/services';
 
-export default function SingIn({ navigation }) {
+export const SingIn = ({ navigation }) => {
+    const deviceState = useSelector(store => store.device);
+    const dispacth = useDispatch();
+
     const [showPass, setShowPass] = useState(false);
     const [user, setUser] = useState({
         username: '',
         password: ''
     });
+    const [loading, setLoading] = useState(false);
+
     const handleOnchange = (name, value) => setUser({ ...user, [name]: value });
+    const handleSubmit = async () => {
+        try {
+            if (!deviceState.connected) {
+                Alert.alert('Sin conexión', 'No se puede conectar con el servidor, verifique su conexión a internet.');
+                return true;
+            }
+            setLoading(true);
+            const res = await httpSingIn(user);
+            if (res.message) Alert.alert('Error al iniciar sesión', res.message);
+            else {
+                const session = sessionAdapter(res.session);
+                dispacth(setSession(session));
+                await saveStorage(_KEYS.SESSION, session);
+                await saveStorage(_KEYS.TOKEN, res.token);
+                navigation.navigate(PrivateRoutes.PRIVATE);
+            }
+        } catch (error) {
+            Alert.alert('Error del servidor', error.toString());
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -55,7 +84,11 @@ export default function SingIn({ navigation }) {
                         <Feather name={showPass ? 'eye-off' : 'eye'} color={colors.black} size={20} />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: colors.primary }} onPress={() => {}}>
+                <TouchableOpacity
+                    style={{ ...mainStyle.button, backgroundColor: colors.primary }}
+                    onPress={handleSubmit}
+                    disabled={loading}
+                >
                     <Text style={{ color: colors.white }}>Iniciar Sesión</Text>
                 </TouchableOpacity>
                 <View style={mainStyle.divide}>
@@ -63,14 +96,18 @@ export default function SingIn({ navigation }) {
                     <Text style={styles.label}>Or</Text>
                     <View style={styles.line} />
                 </View>
-                <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: '#1976D2' }} onPress={() => {}}>
+                <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: '#1976D2' }} onPress={() => {}} disabled={loading}>
                     <Text style={{ color: colors.white }}>Facebook</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: colors.white }} onPress={() => {}}>
+                <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: colors.white }} onPress={() => {}} disabled={loading}>
                     <Text>Google</Text>
                 </TouchableOpacity>
                 {Platform.OS === 'ios' && (
-                    <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: colors.primary }} onPress={() => {}}>
+                    <TouchableOpacity
+                        style={{ ...mainStyle.button, backgroundColor: colors.primary }}
+                        onPress={() => {}}
+                        disabled={loading}
+                    >
                         <Text style={{ color: colors.white }}>Apple</Text>
                     </TouchableOpacity>
                 )}
@@ -86,7 +123,7 @@ export default function SingIn({ navigation }) {
             </Animatable.View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -109,7 +146,7 @@ const styles = StyleSheet.create({
     },
     flexRow: {
         flexDirection: 'row',
-        borderBottomColor: colors.balckLinght,
+        borderBottomColor: colors.blackLinght,
         borderBottomWidth: 1,
         marginBottom: 16,
         alignItems: 'center'
@@ -118,3 +155,5 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+export default SingIn;

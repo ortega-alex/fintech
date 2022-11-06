@@ -1,14 +1,16 @@
 import { Platform, StyleSheet } from 'react-native';
 
 export const colors = {
+    fond: '#8200d6',
     primary: '#278fb0',
     primaryDark: '#006180',
     white: '#f8f9fa',
     whiteLinght: '#ffffff',
     black: '#212121',
     blackDark: '#000',
-    balckLinght: '#484848',
-    success: '#28a745'
+    blackLinght: '#484848',
+    success: '#28a745',
+    danger: '#f44336'
 };
 
 export const mainStyle = StyleSheet.create({
@@ -34,7 +36,7 @@ export const mainStyle = StyleSheet.create({
     line: {
         flex: 1,
         height: 3,
-        backgroundColor: colors.balckLinght
+        backgroundColor: colors.blackLinght
     },
     title: {
         fontSize: 32,
@@ -67,5 +69,11 @@ export const mainStyle = StyleSheet.create({
         shadowRadius: 4,
         width: '100%',
         marginBottom: 16
+    },
+    header: {
+        backgroundColor: colors.primary,
+        elevation: 0,
+        shadowOpacity: 0
+        // maxHeight: Platform.OS === 'android' ? 60 : 100
     }
 });

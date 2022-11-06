@@ -10,7 +10,7 @@ import { PrivateRoutes, PublicRoutes } from './models';
 import { AuthGuard } from './guards';
 import { PublicPrivateInterceptor } from './interceptors';
 
-const Login = lazy(() => import('@/pages/login/Login'));
+const SingIn = lazy(() => import('@/pages/sing-in/SingIn'));
 const Private = lazy(() => import('@/pages/private/Private'));
 
 export default function App() {
@@ -26,7 +26,7 @@ export default function App() {
                         <HashRouter>
                             <RoutesWithNotFound>
                                 <Route path='/' element={<Navigate to={PrivateRoutes.PRIVATE} />} />
-                                <Route path={PublicRoutes.LOGIN} element={<Login />} />
+                                <Route path={PublicRoutes.SINGIN} element={<SingIn />} />
                                 <Route element={<AuthGuard />}>
                                     <Route path={`${PrivateRoutes.PRIVATE}/*`} element={<Private />} />
                                 </Route>

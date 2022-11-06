@@ -6,7 +6,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import { colors, mainStyle } from '@/Style';
 
-export default function CreateAccount({ navigation }) {
+export const CreateAccount = ({ navigation }) => {
     const [showPass, setShowPass] = useState({
         pass: false,
         confir: false
@@ -102,7 +102,7 @@ export default function CreateAccount({ navigation }) {
             </Animatable.View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     },
     flexRow: {
         flexDirection: 'row',
-        borderBottomColor: colors.balckLinght,
+        borderBottomColor: colors.blackLinght,
         borderBottomWidth: 1,
         marginBottom: 16,
         alignItems: 'center'
@@ -134,3 +134,5 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+export default CreateAccount;

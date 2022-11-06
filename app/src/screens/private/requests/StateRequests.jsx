@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 
-export default function ChangePassword() {
+const StateRequests = () => {
     return (
         <View>
-            <Text>ChangePassword</Text>
+            <Text>StateRequests</Text>
         </View>
     );
-}
+};
+
+export default StateRequests;

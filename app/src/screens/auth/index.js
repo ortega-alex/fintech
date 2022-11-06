@@ -1,3 +1,3 @@
-export { default as CreateAccount } from './CreateAccount';
-export { default as RecoverPassword } from './RecoverPassword';
-export { default as SingIn } from './SingIn';
+export * from './CreateAccount';
+export * from './RecoverPassword';
+export * from './SingIn';
