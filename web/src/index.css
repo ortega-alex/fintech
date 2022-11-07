@@ -69,7 +69,7 @@ body {
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
 }
 
 .text-primary {
@@ -113,6 +113,11 @@ body {
     width: 100%;
     overflow: hidden;
     background-color: var(--white-light);
+}
+
+.bg-gradien {
+    background: var(--black-dark);
+    background: linear-gradient(9deg, var(--black-dark) 0%, var(--primary) 61%, var(--primary-light) 100%);
 }
 
 .bg-primary {
@@ -1537,6 +1542,10 @@ body {
 .d-flex {
     display: -ms-flexbox !important;
     display: flex !important;
+}
+
+.flex-1 {
+    flex: 1;
 }
 
 .d-inline-flex {

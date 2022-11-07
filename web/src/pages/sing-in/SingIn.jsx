@@ -10,6 +10,7 @@ import { Icon } from '@/components';
 import FormItem from 'antd/es/form/FormItem';
 import { httpSingIn, _GET, _KEYS } from '@/services';
 import { sessionAdapter } from '@/adapters';
+import logo from '@/assests/images/logo.png';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -37,11 +38,11 @@ export default function Login() {
     };
 
     return (
-        <div className='container bg-primary vh-100'>
+        <div className='container vh-100 bg-gradien'>
             <div className='h-100 d-flex flex-column justify-content-center align-items-center text-center gap-3'>
                 <div className='card p-3 '>
                     <Form onFinish={handleSubmit}>
-                        <h2 className='text-primary'>Fintech</h2>
+                        <img src={logo} alt='logo' width={180} className='mb-3' />
                         <Form.Item name='username' rules={[{ required: true, message: 'El campo es requerido' }]}>
                             <Input prefix={<Icon.User />} placeholder='Ingrese un usuario/correo' />
                         </Form.Item>

@@ -1,5 +1,5 @@
 ### LOGIN
-POST http://{{host}}:{{port}}/api/{{version}}/user/login 
+POST http://{{host}}:{{port}}/api/{{version}}/user/sing-in 
 Content-Type: application/json
 
 {
