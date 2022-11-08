@@ -1,6 +1,10 @@
 export const PrivateRoutes = {
     PRIVATE: 'private',
-    HOME: 'home'
+    CAMPAIGNS: 'campaings',
+    REQUESTS: 'requests',
+    MAINTENANCE: 'maintenance',
+    USERS: 'users',
+    PROFILES: 'profiles'
 };
 
 export const PublicRoutes = {

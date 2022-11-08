@@ -8,7 +8,7 @@ import { setSession } from '@/redux/state';
 import { PrivateRoutes } from '@/models';
 import { Icon } from '@/components';
 import FormItem from 'antd/es/form/FormItem';
-import { httpSingIn, _GET, _KEYS } from '@/services';
+import { httpSingIn, _KEYS } from '@/services';
 import { sessionAdapter } from '@/adapters';
 import logo from '@/assests/images/logo.png';
 
