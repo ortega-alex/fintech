@@ -1,0 +1,12 @@
+campaña 1
+    configuracion de alta de cliente ----
+        cliente: Inter  ----- usuario asignado al cliente
+    configuracion de formulario de presolicitud
+    configuracion de formulario de solicitud
+
+catalogo de procesos 
+    definir un catalogo para definir etapas 
+        ejemplo seria 
+            alta de cliente en el sistema (si no contase con esta configuracion la campaña quedaria libre para cualquier usuario registrado en el app)
+            pre solicitud (esta seviria para realizar calculos o validaciones previas antes de una solicitud)
+            solicitud (iniciar el proceso de analisis y alta de prestamo a cliente)
