@@ -1,0 +1,17 @@
+### GET ALL CAMPAIGNS
+GET http://{{host}}:{{port}}/api/{{version}}/campaign/all
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
+### ADD OR UPDATE CAMPAIGN
+POST http://{{host}}:{{port}}/api/{{version}}/campaign
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
+{
+    "code": "235645-20221109",
+    "campaign": "Planilla",
+    "creation_user_id": 1
+}

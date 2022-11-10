@@ -3,10 +3,11 @@ POST http://{{host}}:{{port}}/api/{{version}}/user/sing-in
 Content-Type: application/json
 
 {
+    "username": "m.ortega",
+    "password": "abc123**",
     "email": "ortegalex27@yahoo.com",
     "id": "5559829780774351",
     "name": "Alex Ortega",
-    "provider": "facebook",
     "registration": true
 }
 
@@ -24,7 +25,6 @@ Encoding: {{ENCODING}}
 Authorization: Bearer {{TOKEN}}
 
 {
-    "id_user": 1,
     "username": "m.ortega",
     "password": "abc123**"
 }

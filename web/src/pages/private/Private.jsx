@@ -64,7 +64,7 @@ export default function Private() {
     const [drawer, setDrawer] = useState(false);
 
     return (
-        <div className='vh-100'>
+        <div className='d-flex flex-column vh-100'>
             <nav className='navbar navbar-dark'>
                 <div className='d-flex'>
                     <Button type='text' className='text-white' onClick={() => setCollaps(!collaps)}>
@@ -92,7 +92,7 @@ export default function Private() {
                     </Avatar>
                 </div>
             </nav>
-            <div className='d-flex h-100'>
+            <div className='flex-1 d-flex'>
                 <Menu mode='inline' inlineCollapsed={collaps} style={{ maxWidth: 150 }} items={menu} />
                 <div className='flex-1 h-100'>
                     <div className='container h-100'>

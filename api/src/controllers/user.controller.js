@@ -21,13 +21,13 @@ export const loginCtr = async (req, res) => {
             if (response.length === 0) return res.status(203).json({ message: 'El usuario no existe' });
             if (response[0].state === '0') return res.status(203).json({ message: 'El usuario esta suspendido' });
         } else if (response.length === 0) {
-            const id_user = await addOrUpdateUser({
+            const user_id = await addOrUpdateUser({
                 username: String(email).split('@')[0],
                 provider,
-                id_provider: id
+                provider_id: id
             });
             await addOrUpdatePerson({
-                id_user,
+                user_id,
                 full_name: name,
                 email
             });
@@ -40,7 +40,7 @@ export const loginCtr = async (req, res) => {
             if (!match) return res.status(203).json({ message: 'Contraseña incorecta' });
         }
 
-        const token = generateToken(user.id_user);
+        const token = generateToken(user.user_id);
         res.status(200).json({ session: user, token });
     } catch (error) {
         res.status(500).json({ message: 'Ha ocurrido un error interno', error });
@@ -54,7 +54,7 @@ export const getAllUserCtr = (req, res) =>
 
 export const addUserCtr = async (req, res) => {
     const { username, password } = req.body;
-    if (!username || !password) return res.state(203).json({ message: 'No se pudieron recuperar campos que son obligatorios' });
+    if (!username || !password) return res.status(203).json({ message: 'No se pudieron recuperar campos que son obligatorios' });
     addOrUpdateUser(req.body)
         .then(() => res.status(200).json({ error: false, message: 'Usuario guardado exitosamente' }))
         .catch(error => res.status(500).json({ message: 'Ha ocurrido un error interno', error }));

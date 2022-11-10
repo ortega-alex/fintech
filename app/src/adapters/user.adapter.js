@@ -1,5 +1,5 @@
 export const sessionAdapter = value => ({
-    id_session: value.id_user,
+    session_id: value.user_id,
     username: value.username,
     full_name: value.full_name,
     email: value.email

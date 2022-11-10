@@ -16,10 +16,14 @@ import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook, BsFillBellFill } from 'react-icons/bs';
 import { HiOutlineCog } from 'react-icons/hi';
 import { RiUserSettingsLine } from 'react-icons/ri';
+import { MdAdd } from 'react-icons/md';
+import { TbEdit } from 'react-icons/tb';
 
 export const Icon = {
+    Add: MdAdd,
     Bell: BsFillBellFill,
     Cog: HiOutlineCog,
+    Edit: TbEdit,
     Eye: AiOutlineEye,
     EyeInvisible: AiOutlineEyeInvisible,
     Facebook: BsFacebook,
