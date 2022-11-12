@@ -1,17 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { Button, message, Modal, Table } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Dropdown, Menu, message, Modal, Table } from 'antd';
 
-import { FormNewCampaign, Icon } from '@/components';
-import { httpGetAllCampaigns } from '@/services';
+import { CampaignLayout, FormNewCampaign, Icon, CustonForm } from '@/components';
+import { httpGetAllCampaigns, httpGetSettingsFormByProccesIdAndCampaignId } from '@/services';
 import { dateFormat } from '@/utilities';
+import { CampaignContext } from '@/context';
+import { campaignAdapter, settingsFormAdapter } from '@/adapters';
+const menu = [
+    {
+        key: '0.1',
+        label: 'Editar Campaña'
+    },
+    {
+        key: '1',
+        label: 'Formulario de Alta de Cliente'
+    },
+    {
+        key: '2',
+        label: 'Formulario de Pre-solicitud'
+    },
+    {
+        key: '3',
+        label: 'Formulario Solicitud'
+    },
+    {
+        key: '4',
+        label: 'Formato de Datos'
+    }
+];
 
 export default function Campaign() {
+    const { campaign, addCampaign, resetCampaign } = useContext(CampaignContext);
+
     const [loading, setLoading] = useState(false);
     const [campaigns, setCampaigns] = useState([]);
     const [modals, setModals] = useState({
         new: false,
-        view: false
+        view: false,
+        custoForm: false
     });
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 10
+    });
+    const [settingForm, setSettingForm] = useState({});
 
     const handleOnChangeModal = (name, value) => setModals({ ...modals, [name]: value });
 
@@ -22,6 +54,14 @@ export default function Campaign() {
             .catch(err => message.error(err))
             .finally(() => setLoading(false));
     };
+
+    const handleGetCampaignForm = id =>
+        httpGetSettingsFormByProccesIdAndCampaignId(id, campaign.campaign_id)
+            .then(res => {
+                setSettingForm(settingsFormAdapter(res));
+                handleOnChangeModal('custoForm', true);
+            })
+            .catch(err => message.error('Error http get setting form by proccess id and campaign id: ' + err.message));
 
     useEffect(() => {
         handleGetCampaigns();
@@ -41,7 +81,10 @@ export default function Campaign() {
                     size='small'
                     pagination={{
                         position: ['none', 'bottomRight'],
-                        pageSize: 50
+                        defaultCurrent: pagination.current,
+                        pageSize: pagination.pageSize,
+                        showSizeChanger: true,
+                        onShowSizeChange: (current, pageSize) => setPagination({ current, pageSize })
                     }}
                     scrollToFirstRowOnChange={true}
                     scroll={{ x: 800, y: window.innerHeight / 2 - 50 }}
@@ -87,8 +130,7 @@ export default function Campaign() {
                                         type='link'
                                         size='small'
                                         onClick={() => {
-                                            // setTicket(ticketAdapter(item));
-                                            // addTicket(ticketAdapter(item));
+                                            addCampaign(campaignAdapter(item));
                                             handleOnChangeModal('view', true);
                                         }}
                                     >
@@ -100,6 +142,7 @@ export default function Campaign() {
                     ]}
                 />
             </div>
+
             <Modal
                 open={modals.new}
                 onCancel={() => handleOnChangeModal('new', false)}
@@ -115,6 +158,50 @@ export default function Campaign() {
                         handleOnChangeModal('new', false);
                     }}
                 />
+            </Modal>
+
+            <Modal
+                open={modals.view}
+                onCancel={() => {
+                    handleOnChangeModal('view', false);
+                    resetCampaign();
+                }}
+                title={
+                    <div className='d-flex align-items-center'>
+                        <Dropdown
+                            overlay={() => (
+                                <Menu
+                                    items={menu}
+                                    onClick={val => {
+                                        if (val.key === '0.1') handleOnChangeModal('new', true);
+                                        else handleGetCampaignForm(val.key);
+                                    }}
+                                />
+                            )}
+                        >
+                            <Icon.Cog size={24} />
+                        </Dropdown>
+                        <p className='h4'>{campaign.campaign}</p>
+                    </div>
+                }
+                destroyOnClose
+                centered
+                width={900}
+                footer={null}
+            >
+                <CampaignLayout />
+            </Modal>
+
+            <Modal
+                open={modals.custoForm}
+                onCancel={() => handleOnChangeModal('custoForm', false)}
+                title={<h6>Configuració de Formulario: {settingForm.proccess} </h6>}
+                destroyOnClose
+                centered
+                width={500}
+                footer={null}
+            >
+                <CustonForm settingForm={settingForm} onClose={() => handleOnChangeModal('custoForm', false)} />
             </Modal>
         </div>
     );

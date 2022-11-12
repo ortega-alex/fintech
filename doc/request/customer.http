@@ -1,0 +1,11 @@
+### GET ALL CUSTOMERS
+GET http://{{host}}:{{port}}/api/{{version}}/customer/all
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
+### GET ALL CUSTOMERS
+GET http://{{host}}:{{port}}/api/{{version}}/customer/1
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}

@@ -15,11 +15,11 @@ export const getAllCampagns = async (only_active = false) => {
 export const addOrUpdateCampaign = async data => {
     const { campaign_id, creation_user_id, campaign, code, state } = onFormat(data);
     const strQuery = `  INSERT INTO campaign (campaign_id, creation_user_id, code, campaign, state)
-                            VALUES (?, ?, ?, ?, ?) AS val
-                            ON DUPLICATE KEY UPDATE
-                            campaign = val.campaign,
-                            state = val.state,
-                            edition_date = CURRENT_TIMESTAMP()`;
+                        VALUES (?, ?, ?, ?, ?) AS val
+                        ON DUPLICATE KEY UPDATE
+                        campaign = val.campaign,
+                        state = val.state,
+                        edition_date = CURRENT_TIMESTAMP()`;
     const res = await executeQuery(strQuery, [campaign_id, creation_user_id, code, campaign, state]);
     if (res.error) throw res.error.sqlMessage;
     return res.insertId;

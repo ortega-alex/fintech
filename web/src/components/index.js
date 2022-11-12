@@ -1,5 +1,10 @@
 export { default as Icon } from './Icon';
+export { default as Inputs } from './Inputs';
 export { default as RoutesWithNotFound } from './RoutesWithNotFound';
 export * from './form/campaign';
+export * from './form/custom-form';
+export * from './form/customer';
 export * from './form';
+export * from './layout/campaign';
+export * from './layout';
 export * from './loading';

@@ -1,0 +1,6 @@
+
+### GET SETTINGS FORM BY PROCCESS ID AND CAMPAIGN ID
+GET http://{{host}}:{{port}}/api/{{version}}/settings-form/1/1
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}

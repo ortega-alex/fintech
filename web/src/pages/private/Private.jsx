@@ -8,6 +8,7 @@ import { Icon, RoutesWithNotFound } from '@/components';
 import logo from '@/assests/images/logo.png';
 import { AuthGuard } from '@/guards';
 import { resetSession } from '@/redux/state';
+import { CampaignState } from '@/context';
 
 const Campaign = lazy(() => import('./campaign/Campaign'));
 const Request = lazy(() => import('./request/Request'));
@@ -62,6 +63,13 @@ export default function Private() {
 
     const [collaps, setCollaps] = useState(true);
     const [drawer, setDrawer] = useState(false);
+    const [search, setSearch] = useState('');
+
+    const handleKewDown = e => {
+        if (e.key === 'Enter') {
+            console.log('Search', search);
+        }
+    };
 
     return (
         <div className='d-flex flex-column vh-100'>
@@ -74,7 +82,15 @@ export default function Private() {
                         <img src={logo} width='115' className='d-inline-block align-top' alt='' />
                     </Link>
                     <div className='visible-md'>
-                        <Input.Search style={{ minWidth: 500, maxWidth: '50vw' }} />
+                        <Input
+                            prefix={<Icon.Search />}
+                            value={search}
+                            onChange={env => setSearch(env.target.value)}
+                            style={{ minWidth: 500, maxWidth: '50vw' }}
+                            placeholder='Buscar'
+                            suffix={search ? <Button size='small' type='text' onClick={() => setSearch('')} icon={<Icon.Close />} /> : null}
+                            onKeyDown={handleKewDown}
+                        />
                     </div>
                 </div>
                 <div className='navbar-nav'>
@@ -98,7 +114,14 @@ export default function Private() {
                     <div className='container h-100'>
                         <RoutesWithNotFound>
                             <Route path='/' element={<Navigate to={PrivateRoutes.CAMPAIGNS} />} />
-                            <Route path={PrivateRoutes.CAMPAIGNS} element={<Campaign />} />
+                            <Route
+                                path={PrivateRoutes.CAMPAIGNS}
+                                element={
+                                    <CampaignState>
+                                        <Campaign />
+                                    </CampaignState>
+                                }
+                            />
                             <Route path={PrivateRoutes.REQUESTS} element={<Request />} />
                             <Route element={<AuthGuard />}>
                                 <Route path={`${PrivateRoutes.MAINTENANCE}/*`} element={<Maintenance />} />

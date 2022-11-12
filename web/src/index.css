@@ -55,6 +55,11 @@ body {
 
 .ant-modal-header {
     border: none;
+    padding-bottom: 0px !important;
+}
+
+.ant-upload {
+    width: 100%;
 }
 
 .ant-scrolling-effect {
@@ -92,6 +97,10 @@ body {
 
 .text-white {
     color: var(--white) !important;
+}
+
+.text-danger {
+    color: var(--danger) !important;
 }
 
 .text-dark {

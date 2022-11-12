@@ -1,0 +1,55 @@
+[
+        {
+            "id": "1",
+            "name": "Archivo",
+            "label": "Archivo",
+            "title": "Archivo",
+            "required": false,
+            "multiple": false,
+            "accept": "*",
+            "disabled": true
+        },
+        {
+            "id": "2",
+            "name": "Area de Texto",
+            "label": "Area de Texto",
+            "title": "Area de Texto",
+            "required": false,
+            "disabled": true
+        },
+        {
+            "id": "3",
+            "name": "Boton de Opciones",
+            "label": "Boton de Opciones",
+            "title": "Boton de Opciones",
+            "options": [],
+            "required": false,
+            "disabled": true
+        },
+        {
+            "id": "4",
+            "name": "Entrada de texto",
+            "label": "Entrada de texto",
+            "title": "Entrada de texto",
+            "required": false,
+            "disabled": true
+        },
+        {
+            "id": "5",
+            "name": "Fecha",
+            "label": "Fecha",
+            "title": "Fecha",
+            "required": false,
+            "disabled": true
+        },
+        {
+            "id": "6",
+            "name": "Selección",
+            "label": "Selección",
+            "title": "Selección",
+            "options": [],
+            "multiple": false,
+            "required": false,
+            "disabled": true
+        }
+    ]
