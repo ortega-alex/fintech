@@ -1,3 +1,3 @@
 export * from './campaign';
-export * from './custom-form';
+export * from './custom';
 export * from './customer';

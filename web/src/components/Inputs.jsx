@@ -1,8 +1,11 @@
-import React from 'react';
-import { Button, DatePicker, Form, Input, Radio, Select, Upload } from 'antd';
+import React, { useState } from 'react';
+import { Button, DatePicker, Form, Input, InputNumber, Radio, Select, Upload } from 'antd';
 import { Icon } from '.';
+import { cuiIsValid, mailIsValied, nitIsValid, passwordIsValid, phoneNumberIsValid } from '@/utilities';
 
 export default function Inputs({ arr, options }) {
+    const [showPass, setShowPass] = useState(false);
+
     const renderUploadFile = (item, i) => (
         <div className={`text-center col-md-${item.col ? item.col : 12}`} key={i}>
             <Form.Item name={item.name} rules={[{ required: item.disabled ? false : item.required, message: `El campo es obligatorio` }]}>
@@ -62,9 +65,40 @@ export default function Inputs({ arr, options }) {
             <Form.Item
                 label={<div className={`${item.hide ? 'text-white' : 'text-black'}`}>{item.label}</div>}
                 name={item.name}
-                rules={[{ required: item.disabled ? false : item.required, message: `El campo es obligatorio` }]}
+                rules={[
+                    {
+                        required: item.disabled ? false : item.required,
+                        // message: `El campo es obligatorio`,
+                        validator: async (_, val) => {
+                            if (item.validation_type && item.required && !item.disabled) {
+                                let error = null;
+                                if (item.validation_type === 1) error = passwordIsValid(val, null);
+                                if (item.validation_type === 2) error = mailIsValied(val);
+                                if (item.validation_type === 3) error = nitIsValid(val);
+                                if (item.validation_type === 4) error = cuiIsValid(val);
+                                if (item.validation_type === 5) error = phoneNumberIsValid(val);
+                                if (error) throw new Error(error);
+                            } else if (item.required && String(val).trim() === '') throw new Error('El campo es obligatorio');
+                        }
+                    }
+                ]}
             >
-                <Input disabled={item.disabled} placeholder={`Ingrese ${String(item.label).toLowerCase()}`} required={item.required} />
+                <Input
+                    type={item.validation_type && item.validation_type === 1 && !showPass ? 'password' : 'text'}
+                    disabled={item.disabled}
+                    placeholder={`Ingrese ${String(item.label).toLowerCase()}`}
+                    required={item.required}
+                    suffix={
+                        item.validation_type && item.validation_type === 1 ? (
+                            <Button
+                                size='small'
+                                type='text'
+                                icon={showPass ? <Icon.Eye /> : <Icon.EyeInvisible />}
+                                onClick={() => setShowPass(!showPass)}
+                            />
+                        ) : null
+                    }
+                />
             </Form.Item>
         </div>
     );
@@ -117,6 +151,27 @@ export default function Inputs({ arr, options }) {
             </Form.Item>
         </div>
     );
+
+    const renderInputNumber = (item, i) => (
+        <div className={`col-md-${item.col ? item.col : 12}`} key={i}>
+            <Form.Item
+                label={item.label}
+                name={item.name}
+                rules={[{ required: item.disabled ? false : item.required, message: `El campo es obligatorio` }]}
+            >
+                <InputNumber
+                    className='w-100'
+                    placeholder={`Ingrese ${String(item.label).toLowerCase()}`}
+                    max={item.max}
+                    min={item.min}
+                    disabled={item.disabled}
+                    formatter={value => (item.format ? `Q ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : value)}
+                    parser={value => (item.format ? value.replace(/\Q\s?|(,*)/g, '') : value)}
+                />
+            </Form.Item>
+        </div>
+    );
+
     return (
         <div className='row'>
             {arr.map((item, i) => {
@@ -132,6 +187,8 @@ export default function Inputs({ arr, options }) {
                     ? renderInputDate(item, i)
                     : item.id === '6'
                     ? renderSelected(item, i)
+                    : item.id === '7'
+                    ? renderInputNumber(item, i)
                     : null;
             })}
         </div>

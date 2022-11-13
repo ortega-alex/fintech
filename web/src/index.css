@@ -92,7 +92,7 @@ body {
 }
 
 .text-primary {
-    color: var(--primary-dark);
+    color: var(--primary-dark) !important;
 }
 
 .text-white {

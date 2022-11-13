@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+    addCustomersCtr,
     addOrUpdateCampaignCtr,
     addOrUpdateSettingFormCtl,
     addUserCtr,
@@ -24,6 +25,7 @@ route.post('/campaign', authenticateToken, addOrUpdateCampaignCtr);
 
 route.get('/customer/all', authenticateToken, getAllCustomersCtr);
 route.get('/customer/:id', authenticateToken, getCustomersByCampaignIdCtr);
+route.post('/customer', authenticateToken, addCustomersCtr);
 
 route.get('/settings-form/:proccess_id/:campaign_id', authenticateToken, getSettingFormByProccessIdAndCampaignIdCtl);
 route.post('/settings-form', authenticateToken, addOrUpdateSettingFormCtl);

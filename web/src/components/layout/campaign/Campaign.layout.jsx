@@ -2,15 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, message, Modal, Table } from 'antd';
 
 import { CampaignContext } from '@/context';
-import { Icon, FormCustomer } from '@/components';
+import { Icon, CustomerForm } from '@/components';
 import { copyToClipboard, dateFormat } from '@/utilities';
 import { httpGetCustomersByCampaignId } from '@/services';
+import { customerAdapter } from '@/adapters';
 
 export default function CampaignLayout() {
     const { campaign } = useContext(CampaignContext);
 
     const [loading, setLoading] = useState(false);
     const [customers, setCustomers] = useState([]);
+    const [customer, setCustomer] = useState({});
     const [modal, setModal] = useState(false);
 
     const handleGetCustomers = () => {
@@ -79,9 +81,9 @@ export default function CampaignLayout() {
                     },
                     {
                         title: 'Estado',
-                        dataIndex: '_estado',
-                        key: '_estado',
-                        sorter: (a, b) => a._estado.localeCompare(b._estado)
+                        dataIndex: '_state',
+                        key: '_state',
+                        sorter: (a, b) => a._state.localeCompare(b._state)
                     },
                     {
                         title: 'Opciones',
@@ -89,14 +91,13 @@ export default function CampaignLayout() {
                         render: (_, item) => (
                             <div className='text-center'>
                                 <Button
-                                    // style={{ width: 40 }}
                                     icon={<Icon.Edit />}
                                     type='link'
                                     size='small'
-                                    // onClick={() => {
-                                    //     addCampaign(campaignAdapter(item));
-                                    //     handleOnChangeModal('view', true);
-                                    // }}
+                                    onClick={() => {
+                                        setCustomer(customerAdapter(item));
+                                        setModal(true);
+                                    }}
                                 >
                                     Editar
                                 </Button>
@@ -107,7 +108,13 @@ export default function CampaignLayout() {
             />
 
             <Modal open={modal} onCancel={() => setModal(false)} centered footer={null} title={<h4>Cliente</h4>} destroyOnClose width={450}>
-                <FormCustomer onClose={() => setModal(false)} />
+                <CustomerForm
+                    customer={customer}
+                    onClose={val => {
+                        if (val === true) handleGetCustomers();
+                        setModal(false);
+                    }}
+                />
             </Modal>
         </div>
     );

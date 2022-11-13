@@ -1,8 +1,8 @@
-export const cuiIsValid = (cui, callback) => {
-    if (!cui) return callback('CUI vacío');
+export const cuiIsValid = cui => {
+    if (!cui) return 'CUI vacío';
     const cuiRegExp = /^[0-9]{4}\s?[0-9]{5}\s?[0-9]{4}$/;
 
-    if (!cuiRegExp.test(cui)) return callback('CUI con formato inválido');
+    if (!cuiRegExp.test(cui)) return 'CUI con formato inválido';
 
     cui = String(cui).replace(/\s/, '').replace(/ /g, '');
     const depto = parseInt(cui.substring(9, 11), 10);
@@ -35,9 +35,9 @@ export const cuiIsValid = (cui, callback) => {
         /* 21 - Jalapa tiene:         */ 7 /* municipios. */, /* 22 - Jutiapa tiene:        */ 17 /* municipios. */
     ];
 
-    if (depto === 0 || muni === 0) return callback('CUI con código de municipio o departamento inválido.');
-    if (depto > munisPorDepto.length) return callback('CUI con código de departamento inválido.');
-    if (muni > munisPorDepto[depto - 1]) return callback('CUI con código de municipio inválido.');
+    if (depto === 0 || muni === 0) return 'CUI con código de municipio o departamento inválido.';
+    if (depto > munisPorDepto.length) return 'CUI con código de departamento inválido.';
+    if (muni > munisPorDepto[depto - 1]) return 'CUI con código de municipio inválido.';
 
     // Se verifica el correlativo con base
     // en el algoritmo del complemento 11.
@@ -47,14 +47,14 @@ export const cuiIsValid = (cui, callback) => {
     }
 
     const modulo = total % 11;
-    return callback(!(modulo === verificador) ? 'No valido' : null);
+    return !(modulo === verificador) ? 'No valido' : null;
 };
 
-export const nitIsValid = (nit, callback) => {
-    if (!nit) return callback('NIT vacío');
+export const nitIsValid = nit => {
+    if (!nit) return 'NIT vacío';
 
     const nitRegExp = new RegExp('^[0-9]+(-?[0-9kK])?$');
-    if (!nitRegExp.test(nit)) return callback('Nit con formato invalido');
+    if (!nitRegExp.test(nit)) return 'Nit con formato invalido';
 
     nit = String(nit).replace(/-/, '');
     const lastChar = nit.length - 1;
@@ -74,28 +74,29 @@ export const nitIsValid = (nit, callback) => {
     const modulus = (11 - (total % 11)) % 11;
     const computedChecker = modulus == 10 ? 'k' : modulus.toString();
 
-    if (/\s/.test(nit) || nit.includes('-')) return callback('No se aceptan espacios ni guiones.');
-    return callback(expectedCheker === computedChecker ? null : 'NIT Inválido.');
+    if (/\s/.test(nit) || nit.includes('-')) return 'No se aceptan espacios ni guiones.';
+    return expectedCheker === computedChecker ? null : 'NIT Inválido.';
 };
 
-export const mailIsValied = (mail, callback) => {
+export const mailIsValied = mail => {
+    if (!mail || String(mail).trim() === '') return 'El correo esta en blanco';
     const emailRegExp = /^(([^<>()[\],;:\s@"]+(\.[^<>()[\],;:\s@"]+)*)|(".+"))@(([^<>()[\],;:\s@"]+\.)+[^<>()[\],;:\s@"]{2,})$/;
-    if (!emailRegExp.test(mail.trim())) return callback('Correo no valido.');
-    return callback(null);
+    if (!emailRegExp.test(mail.trim())) return 'Correo no valido.';
+    return null;
 };
 
-export const passwordIsValid = (password, currentPass, callback) => {
+export const passwordIsValid = (password, currentPass) => {
     const passRegExp = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$/g;
-    if (password.length < 6) return callback('La contraseña debe tener al menos 6 caracteres');
-    if (password.trim() === '') return callback('La contraseña no puede estar vacía');
-    if (currentPass && password === currentPass) return callback('La nueva contraseña no puede ser igual a la actual');
-    if (!passRegExp.test(password))
-        return callback('La contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número');
-    return callback(null);
+    if (password.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
+    if (password.trim() === '') return 'La contraseña no puede estar vacía';
+    if (currentPass && password === currentPass) return 'La nueva contraseña no puede ser igual a la actual';
+    if (!passRegExp.test(password)) return 'La contraseña debe tener al menos una letra mayúscula, una letra minúscula y un número';
+    return null;
 };
 
-export const phoneNumberIsValid = (number, callback) => {
+export const phoneNumberIsValid = number => {
+    if (!number || String(number).trim() === '') return 'El número esta en blanco';
     const phoneNumberRegExp = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{2,6}$/im;
-    if (!phoneNumberRegExp.test(number)) return callback('Número de teléfono no es valido');
-    return callback(null);
+    if (!phoneNumberRegExp.test(number)) return 'Número de teléfono no es valido';
+    return null;
 };

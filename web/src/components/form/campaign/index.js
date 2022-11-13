@@ -1,1 +1,1 @@
-export { default as FormNewCampaign } from './FormNewCampaign';
+export { default as NewCampaignForm } from './NewCampaign.form';

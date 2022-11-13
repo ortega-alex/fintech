@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Contraseña"
+    },
+    {
+        "id": 2,
+        "name": "Correo"
+    },
+    {
+        "id": 3,
+        "name": "Documento de identificación Nit"
+    },
+    {
+        "id": 4,
+        "name": "Documento de identificacion personal DPI"
+    },
+    {
+        "id": 5,
+        "name": "Teléfono"
+    }
+]

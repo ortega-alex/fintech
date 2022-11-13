@@ -1,1 +1,1 @@
-export { default as CampaignLayout } from './CampaignLayout';
+export { default as CampaignLayout } from './Campaign.layout';

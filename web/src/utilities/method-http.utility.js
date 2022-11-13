@@ -5,7 +5,6 @@ const timeout = 20000;
 
 export const httpRequest = async (path, method, data = {}) => {
     try {
-        console.log(_SERVER.apiUrl + path);
         data = process.env.NODE_ENV === 'development' ? data : { data: encryptData(body) };
         const res = await axios({
             method: method || 'GET',

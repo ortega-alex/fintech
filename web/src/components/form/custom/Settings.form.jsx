@@ -5,10 +5,11 @@ import { Inputs } from '@/components';
 import { replaceAccents, replaceWhiteSpaceByCharacter } from '@/utilities';
 import propertyes from '@/assests/files/input-types.json';
 import fileTypes from '@/assests/files/file-types.json';
+import validationTypes from '@/assests/files/validation-type.json';
 
-export default function FormSettings({ onClose }) {
+export default function SettingsForm({ onClose }) {
     const refForm = useRef();
-    const [disabled, setDisabled] = useState(false);
+    // const [disabled, setDisabled] = useState(false);
     const [renderInput, setRenderInput] = useState(null);
     let [input, setInput] = useState({});
 
@@ -16,7 +17,7 @@ export default function FormSettings({ onClose }) {
     const handleOnChangeValues = obj => {
         const name = Object.keys(obj)[0];
         const value = Object.values(obj)[0];
-        let _disabled = false;
+        // let _disabled = false;
         if (name === 'id') {
             refForm.current.setFieldsValue({
                 title: '',
@@ -44,11 +45,17 @@ export default function FormSettings({ onClose }) {
         if (name === 'type') {
             input.multiple = value === '1' ? true : false;
         }
-        if (input.id > 6) {
-            _disabled = true;
-            refForm.current.setFieldsValue({ title: input.title });
+        if (name === 'validation_type') {
+            input.validation_type = value;
         }
-        setDisabled(_disabled);
+        // if (input.id > 6) {
+        //     _disabled = true;
+        //     refForm.current.setFieldsValue({ title: input.title });
+        // }
+        if (name === 'format') {
+            input.format = value === '1' ? true : false;
+        }
+        // setDisabled(_disabled);
         setInput(input);
         renderViewInputs(input);
     };
@@ -74,7 +81,10 @@ export default function FormSettings({ onClose }) {
                 </div>
                 <div className='col-md-6'>
                     <Form.Item label='Titulo' name='title' required={[{ required: true, message: 'Ingrese un titulo' }]}>
-                        <Input placeholder='Ingrese un titulo' disabled={disabled} />
+                        <Input
+                            placeholder='Ingrese un titulo'
+                            // disabled={disabled}
+                        />
                     </Form.Item>
                 </div>
             </div>
@@ -98,7 +108,7 @@ export default function FormSettings({ onClose }) {
                         </Form.Item>
                     </div>
                 )}
-                {input && (input.id === '6' || input.id === '7' || input.id === '9') && (
+                {input && input.id === '6' && (
                     <div className={`col-md-${input && input.id === '6' ? '4' : '6'} `}>
                         <Form.Item label='Tipo' name='type'>
                             <Radio.Group>
@@ -108,10 +118,33 @@ export default function FormSettings({ onClose }) {
                         </Form.Item>
                     </div>
                 )}
+                {input && input.id === '7' && (
+                    <div className={`col-md-${input && input.id === '6' ? '4' : '6'} `}>
+                        <Form.Item label='Formato' name='format'>
+                            <Radio.Group defaultValue='0'>
+                                <Radio value='0'>Numero</Radio>
+                                <Radio value='1'>Moneda</Radio>
+                            </Radio.Group>
+                        </Form.Item>
+                    </div>
+                )}
                 {input && (input.id === '3' || input.id === '6') && (
                     <div className={`col-md-${input && input.id === '6' ? '4' : '6'} `}>
                         <Form.Item label='Opciones' name='options'>
                             <Select placeholder='Ingrese las opciones' mode='tags' />
+                        </Form.Item>
+                    </div>
+                )}
+                {input && input.id === '4' && (
+                    <div className='col-md-6'>
+                        <Form.Item label='Tipo de validacion' name='validation_type'>
+                            <Select placeholder='Seleccione una opción' allowClear>
+                                {validationTypes.map(item => (
+                                    <Select.Option key={item.id} value={item.id}>
+                                        {item.name}
+                                    </Select.Option>
+                                ))}
+                            </Select>
                         </Form.Item>
                     </div>
                 )}

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Dropdown, Menu, message, Modal, Table } from 'antd';
 
-import { CampaignLayout, FormNewCampaign, Icon, CustonForm } from '@/components';
+import { CampaignLayout, Icon, CustonSettingsForm, NewCampaignForm } from '@/components';
 import { httpGetAllCampaigns, httpGetSettingsFormByProccesIdAndCampaignId } from '@/services';
 import { dateFormat } from '@/utilities';
 import { CampaignContext } from '@/context';
@@ -25,7 +25,7 @@ const menu = [
     },
     {
         key: '4',
-        label: 'Formato de Datos'
+        label: 'Formato de Personal'
     }
 ];
 
@@ -58,7 +58,7 @@ export default function Campaign() {
     const handleGetCampaignForm = id =>
         httpGetSettingsFormByProccesIdAndCampaignId(id, campaign.campaign_id)
             .then(res => {
-                setSettingForm(settingsFormAdapter(res));
+                setSettingForm(settingsFormAdapter(res, true));
                 handleOnChangeModal('custoForm', true);
             })
             .catch(err => message.error('Error http get setting form by proccess id and campaign id: ' + err.message));
@@ -125,7 +125,6 @@ export default function Campaign() {
                             render: (_, item) => (
                                 <div className='text-center'>
                                     <Button
-                                        style={{ width: 40 }}
                                         icon={<Icon.Edit />}
                                         type='link'
                                         size='small'
@@ -152,7 +151,7 @@ export default function Campaign() {
                 width={450}
                 footer={null}
             >
-                <FormNewCampaign
+                <NewCampaignForm
                     onClose={val => {
                         if (val === true) handleGetCampaigns();
                         handleOnChangeModal('new', false);
@@ -201,7 +200,7 @@ export default function Campaign() {
                 width={500}
                 footer={null}
             >
-                <CustonForm settingForm={settingForm} onClose={() => handleOnChangeModal('custoForm', false)} />
+                <CustonSettingsForm settingForm={settingForm} onClose={() => handleOnChangeModal('custoForm', false)} />
             </Modal>
         </div>
     );

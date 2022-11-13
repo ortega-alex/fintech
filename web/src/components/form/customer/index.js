@@ -1,1 +1,1 @@
-export { default as FormCustomer } from './FormCustomer';
+export { default as CustomerForm } from './Customer.form';

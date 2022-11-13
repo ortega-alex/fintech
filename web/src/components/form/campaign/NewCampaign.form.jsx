@@ -6,7 +6,7 @@ import { CampaignContext } from '@/context';
 import { httpAddOrUpdateCampaign } from '@/services';
 import { newCode } from '@/utilities';
 
-export default function FormNewCampaign({ onClose }) {
+export default function NewCampaignForm({ onClose }) {
     const sessionState = useSelector(store => store.session);
     const { campaign } = useContext(CampaignContext);
 

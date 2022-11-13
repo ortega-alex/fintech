@@ -9,3 +9,16 @@ GET http://{{host}}:{{port}}/api/{{version}}/customer/1
 Content-Type: application/json
 Encoding: {{ENCODING}}
 Authorization: Bearer {{TOKEN}}
+
+### ADD OR UPDATE CUSTOMER
+POST http://{{host}}:{{port}}/api/{{version}}/customer
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
+{
+    "customer_id": 0,
+    "user_id": 1,
+    "campaign_form_id": 1,
+    "state": 1
+}
