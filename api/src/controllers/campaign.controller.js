@@ -5,6 +5,11 @@ export const getAllCampaignsCtr = (req, res) =>
         .then(campaigns => res.status(200).json(campaigns))
         .catch(error => res.status(500).json({ message: 'Ha ocurrido un error interno', error }));
 
+export const getCampaignsActiveCtr = (req, res) =>
+    getAllCampagns(true)
+        .then(campaigns => res.status(200).json(campaigns))
+        .catch(error => res.status(500).json({ message: 'Ha ocurrido un error interno', error }));
+
 export const addOrUpdateCampaignCtr = async (req, res) => {
     const { creation_user_id, campaign, code } = req.body;
     if (!creation_user_id || !campaign || !code)

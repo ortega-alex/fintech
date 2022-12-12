@@ -4,6 +4,12 @@ Content-Type: application/json
 Encoding: {{ENCODING}}
 Authorization: Bearer {{TOKEN}}
 
+### GET CAMPAIGNS ACTIVE
+GET http://{{host}}:{{port}}/api/{{version}}/campaign/active
+Content-Type: application/json
+Encoding: {{ENCODING}}
+Authorization: Bearer {{TOKEN}}
+
 ### ADD OR UPDATE CAMPAIGN
 POST http://{{host}}:{{port}}/api/{{version}}/campaign
 Content-Type: application/json

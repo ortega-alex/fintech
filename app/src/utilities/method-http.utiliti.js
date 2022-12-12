@@ -8,7 +8,10 @@ export const httpRequest = async (path, method, data) => {
             method: method || 'GET',
             url: _SERVER.apiUrl + path,
             data: data || {},
-            timeout
+            timeout,
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         return res.data;
     } catch (error) {

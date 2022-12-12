@@ -13,7 +13,8 @@ import {
     AiOutlineLogout,
     AiOutlineSearch,
     AiOutlineClose,
-    AiOutlineUpload
+    AiOutlineUpload,
+    AiOutlineQuestionCircle
 } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook, BsFillBellFill, BsTrash } from 'react-icons/bs';
@@ -42,6 +43,7 @@ export const Icon = {
     MenuFold: AiOutlineMenuFold,
     MenuUnfold: AiOutlineMenuUnfold,
     Profile: AiOutlineProfile,
+    Question: AiOutlineQuestionCircle,
     Search: AiOutlineSearch,
     Trash: BsTrash,
     Unlock: AiFillUnlock,

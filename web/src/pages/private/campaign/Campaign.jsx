@@ -180,7 +180,16 @@ export default function Campaign() {
                         >
                             <Icon.Cog size={24} />
                         </Dropdown>
-                        <p className='h4'>{campaign.campaign}</p>
+                        <p className='h4'>
+                            {campaign.campaign}
+                            <strong className='small text-danger ml-5'>
+                                {campaign.disabled
+                                    ? 'Pendiente de configurar para poder lanzar la campaña'
+                                    : !campaign.state
+                                    ? 'La campaña ya esta configurada pero no se ha lanzado'
+                                    : ''}
+                            </strong>
+                        </p>
                     </div>
                 }
                 destroyOnClose

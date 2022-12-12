@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     customList: {
         padding: 20,
         borderTopWidth: 1,
-        borderTopColor: colors.blackLinght
+        borderTopColor: colors.whiteDark
     },
     button: {
         paddingVertical: 15

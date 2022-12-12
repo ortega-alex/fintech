@@ -3,11 +3,8 @@ import { getStorage, _KEYS } from '@/services';
 
 export const PublicProvateInterceptor = () => {
     axios.interceptors.request.use(async request => {
-        const local = await getStorage(_KEYS.TOKEN);
-        const token = local ? JSON.parse(local) : null;
-        if (token) {
-            request.headers.Authorization = `Bearer ${token}`;
-        }
+        const token = await getStorage(_KEYS.TOKEN);
+        if (token) request.headers.Authorization = `Bearer ${token}`;
         return request;
     });
     axios.interceptors.response.use(

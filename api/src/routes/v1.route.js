@@ -7,6 +7,7 @@ import {
     getAllCampaignsCtr,
     getAllCustomersCtr,
     getAllUserCtr,
+    getCampaignsActiveCtr,
     getCustomersByCampaignIdCtr,
     getSettingFormByProccessIdAndCampaignIdCtl,
     loginCtr
@@ -21,6 +22,7 @@ route.get('/user/all', authenticateToken, getAllUserCtr);
 route.post('/user', authenticateToken, addUserCtr);
 
 route.get('/campaign/all', authenticateToken, getAllCampaignsCtr);
+route.get('/campaign/active', authenticateToken, getCampaignsActiveCtr);
 route.post('/campaign', authenticateToken, addOrUpdateCampaignCtr);
 
 route.get('/customer/all', authenticateToken, getAllCustomersCtr);

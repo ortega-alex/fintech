@@ -6,6 +6,7 @@ export const colors = {
     primaryDark: '#006180',
     white: '#f8f9fa',
     whiteLinght: '#ffffff',
+    whiteDark: '#C5C6C7',
     black: '#212121',
     blackDark: '#000',
     blackLinght: '#484848',
@@ -36,7 +37,13 @@ export const mainStyle = StyleSheet.create({
     line: {
         flex: 1,
         height: 3,
-        backgroundColor: colors.blackLinght
+        backgroundColor: colors.whiteDark
+    },
+    titleDivide: {
+        paddingHorizontal: 10,
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: colors.whiteDark
     },
     title: {
         fontSize: 32,

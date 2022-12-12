@@ -16,6 +16,8 @@
     "rules": {
         "no-unused-vars": "warn",
         "react/prop-types": "off",
-        "no-unneeded-ternary": "off"
+        "no-unneeded-ternary": "off",
+        "camelcase": "off",
+        "no-return-assign": "off"
     }
 }

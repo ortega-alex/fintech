@@ -92,15 +92,17 @@ export const SingIn = ({ navigation }) => {
                     <Text style={{ color: colors.white }}>Iniciar Sesión</Text>
                 </TouchableOpacity>
                 <View style={mainStyle.divide}>
-                    <View style={styles.line} />
-                    <Text style={styles.label}>Or</Text>
-                    <View style={styles.line} />
+                    <View style={mainStyle.line} />
+                    <Text style={mainStyle.titleDivide}>Or</Text>
+                    <View style={mainStyle.line} />
                 </View>
                 <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: '#1976D2' }} onPress={() => {}} disabled={loading}>
-                    <Text style={{ color: colors.white }}>Facebook</Text>
+                    <FontAwesome name='facebook' color={colors.white} />
+                    <Text style={{ color: colors.white }}> Facebook</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ ...mainStyle.button, backgroundColor: colors.white }} onPress={() => {}} disabled={loading}>
-                    <Text>Google</Text>
+                    <FontAwesome name='google' />
+                    <Text> Google</Text>
                 </TouchableOpacity>
                 {Platform.OS === 'ios' && (
                     <TouchableOpacity

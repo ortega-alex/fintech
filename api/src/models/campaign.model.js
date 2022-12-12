@@ -2,7 +2,9 @@ import { executeQuery } from '../utilities';
 
 export const getAllCampagns = async (only_active = false) => {
     const _WHERE = only_active ? 'WHERE a.state = 1' : '';
-    const strQuery = `  SELECT *
+    const strQuery = `  SELECT a.*, 
+                            b.username,
+                            (SELECT GROUP_CONCAT(proccess_id) FROM campaign_form WHERE campaign_id = a.campaign_id) AS forms_ids
                         FROM campaign a
                         INNER JOIN user b ON a.creation_user_id = b.user_id
                         ${_WHERE}
